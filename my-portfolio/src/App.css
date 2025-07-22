@@ -1,0 +1,512 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  overflow-x: hidden;
+  background: linear-gradient(to bottom, #87CEEB 0%, #98D8E8 50%, #90EE90 100%);
+  min-height: 100vh;
+}
+
+.portfolio-container {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Sky and Background */
+.sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(to bottom, #87CEEB 0%, #B0E0E6 100%);
+  z-index: 1;
+}
+
+.sun {
+  position: absolute;
+  top: 10%;
+  right: 15%;
+  font-size: 4rem;
+  z-index: 2;
+  animation: sunGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes sunGlow {
+  0% { transform: scale(1); filter: brightness(1); }
+  100% { transform: scale(1.1); filter: brightness(1.2); }
+}
+
+/* Clouds */
+.clouds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cloud {
+  position: absolute;
+  font-size: 6rem;
+  opacity: 0.9;
+  transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+}
+
+.cloud1 { top: 10%; left: 20%; }
+.cloud2 { top: 5%; right: 10%; }
+.cloud3 { top: 25%; left: 50%; }
+.cloud4 { top: 15%; left: 70%; }
+.cloud5 { top: 30%; right: 30%; }
+
+.clouds-moved .cloud1 { transform: translateX(-200vw); }
+.clouds-moved .cloud2 { transform: translateX(200vw); }
+.clouds-moved .cloud3 { transform: translateY(-100vh); }
+.clouds-moved .cloud4 { transform: translateX(200vw) translateY(-50vh); }
+.clouds-moved .cloud5 { transform: translateX(-200vw) translateY(-30vh); }
+
+/* Village Scene */
+.village-scene {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 2s ease-out 1s;
+  z-index: 5;
+}
+
+.village-revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Ground */
+.ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(to bottom, #90EE90 0%, #228B22 100%);
+  z-index: 2;
+}
+
+/* Path */
+.path {
+  position: absolute;
+  bottom: 15%;
+  left: 10%;
+  width: 80%;
+  height: 8%;
+  background: linear-gradient(to right, 
+    #D2B48C 0%, 
+    #DEB887 20%, 
+    #D2B48C 40%, 
+    #DEB887 60%, 
+    #D2B48C 80%, 
+    #DEB887 100%);
+  border-radius: 50px;
+  z-index: 3;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Interactive Elements */
+.interactive-item {
+  position: absolute;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 4;
+}
+
+.interactive-item:hover {
+  transform: scale(1.2);
+  filter: brightness(1.2) drop-shadow(0 8px 16px rgba(0,0,0,0.3));
+}
+
+.interactive-item:hover::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  z-index: 100;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Houses */
+.house {
+  font-size: 4rem;
+  animation: houseFloat 4s ease-in-out infinite;
+}
+
+.house1 {
+  bottom: 25%;
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.house2 {
+  bottom: 30%;
+  right: 25%;
+  animation-delay: 1s;
+}
+
+@keyframes houseFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Trees */
+.tree {
+  font-size: 5rem;
+  animation: treeWave 3s ease-in-out infinite;
+}
+
+.tree1 {
+  bottom: 35%;
+  left: 45%;
+  animation-delay: 0.5s;
+}
+
+.tree2 {
+  bottom: 40%;
+  right: 10%;
+  animation-delay: 1.5s;
+}
+
+@keyframes treeWave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(2deg); }
+  75% { transform: rotate(-2deg); }
+}
+
+/* Mountain */
+.mountain {
+  bottom: 45%;
+  left: 5%;
+  font-size: 6rem;
+  animation: mountainShimmer 5s ease-in-out infinite;
+}
+
+@keyframes mountainShimmer {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.3); }
+}
+
+/* Windmill */
+.windmill {
+  bottom: 35%;
+  right: 40%;
+  font-size: 3rem;
+}
+
+.windmill-body {
+  position: relative;
+}
+
+.windmill-blades {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: windmillSpin 2s linear infinite;
+}
+
+@keyframes windmillSpin {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+
+/* Flowers */
+.flowers {
+  position: absolute;
+  bottom: 20%;
+  left: 60%;
+  font-size: 2rem;
+  animation: flowerBounce 2s ease-in-out infinite;
+  z-index: 3;
+}
+
+@keyframes flowerBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Header */
+.header {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: white;
+  z-index: 15;
+  opacity: 0;
+  transform: translateX(-50%) translateY(-50px);
+  transition: all 1s ease 3s;
+}
+
+.header-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.header h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  background: linear-gradient(45deg, #FFD700, #FFA500, #FF6347);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textGlow 3s ease-in-out infinite alternate;
+}
+
+.header p {
+  font-size: 1.2rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+@keyframes textGlow {
+  0% { filter: brightness(1); }
+  100% { filter: brightness(1.3); }
+}
+
+/* Navigation */
+.navigation {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 30px;
+  z-index: 15;
+  opacity: 0;
+  transform: translateX(-50%) translateY(50px);
+  transition: all 1s ease 3.5s;
+}
+
+.nav-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.navigation a {
+  color: white;
+  text-decoration: none;
+  padding: 12px 24px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.3);
+  transition: all 0.3s ease;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.navigation a:hover {
+  background: rgba(255,255,255,0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  transform: scale(0.9);
+  animation: modalSlideIn 0.3s ease forwards;
+}
+
+@keyframes modalSlideIn {
+  to {
+    transform: scale(1);
+  }
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: #333;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.modal-icon {
+  font-size: 3rem;
+}
+
+.modal-header h2 {
+  color: #333;
+  margin: 0;
+  font-size: 2rem;
+}
+
+.modal-description {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.projects-list h3 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.projects-list ul {
+  list-style: none;
+  margin-bottom: 25px;
+}
+
+.projects-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  color: #555;
+  font-size: 1rem;
+}
+
+.projects-list li:before {
+  content: "✨ ";
+  margin-right: 8px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, #4CAF50, #45a049);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+}
+
+.btn-secondary {
+  background: #f0f0f0;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.btn-secondary:hover {
+  background: #e0e0e0;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .header p {
+    font-size: 1rem;
+  }
+  
+  .house, .tree, .mountain {
+    font-size: 3rem;
+  }
+  
+  .sun {
+    font-size: 3rem;
+  }
+  
+  .cloud {
+    font-size: 4rem;
+  }
+  
+  .navigation {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .navigation a {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .modal-content {
+    padding: 20px;
+    margin: 20px;
+  }
+  
+  .modal-actions {
+    flex-direction: column;
+  }
+}
