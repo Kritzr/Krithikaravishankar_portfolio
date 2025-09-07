@@ -670,6 +670,197 @@
             transition: transform 0.1s ease;
         }
 
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        .star-card {
+            font-family: 'Poppins', sans-serif;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 50px 40px;
+            max-width: 400px;
+            width: 100%;
+            min-height: 650px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .star-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            pointer-events: none;
+        }
+
+        .star-header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .star-title {
+            font-size: 1.8em;
+            font-weight: 600;
+            background: linear-gradient(45deg, #fff, #f8f9fa, #e9ecef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .date-display {
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .loading {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1em;
+            margin: 50px 0;
+        }
+
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid rgba(255, 255, 255, 0.8);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        .astronomy-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .astronomy-image {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .astronomy-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .astronomy-explanation {
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.6;
+            font-size: 0.9em;
+            font-weight: 300;
+            text-align: justify;
+        }
+
+        .astronomy-explanation::first-line {
+            font-weight: 400;
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.3), rgba(255, 255, 255, 0.2));
+            padding: 2px 8px;
+            border-radius: 15px;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .star-symbol {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 20px;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        .star1 { top: 20px; left: 30px; animation-delay: 0s; }
+        .star2 { top: 50px; right: 40px; animation-delay: 1s; }
+        .star3 { bottom: 80px; left: 50px; animation-delay: 2s; }
+        .star4 { bottom: 40px; right: 30px; animation-delay: 0.5s; }
+        .star5 { top: 120px; left: 20px; animation-delay: 1.5s; }
+
+        .error-message {
+            text-align: center;
+            color: rgba(255, 100, 100, 0.9);
+            font-size: 1em;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 100, 100, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 100, 100, 0.2);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 600px) {
+            .star-card {
+                padding: 40px 25px;
+                margin: 10px;
+                min-height: 550px;
+            }
+            
+            .star-title {
+                font-size: 1.5em;
+            }
+            
+            .astronomy-title {
+                font-size: 1.2em;
+            }
+            
+            .astronomy-explanation {
+                font-size: 0.85em;
+            }
+        }
 
     </style>
 </head>
@@ -718,6 +909,44 @@ Curious and driven, I thrive at the intersection of networking, AI, and real-wor
         <div class="pleiades-container">
           <canvas id="pleiades-canvas"></canvas>
         </div>
+
+        <div class="star-card">
+        <!-- Decorative stars -->
+        <div class="star-symbol star1">✦</div>
+        <div class="star-symbol star2">✧</div>
+        <div class="star-symbol star3">✦</div>
+        <div class="star-symbol star4">✧</div>
+        <div class="star-symbol star5">✦</div>
+        
+        <div class="star-card">
+        <!-- Decorative stars -->
+        <div class="star-symbol star1">✦</div>
+        <div class="star-symbol star2">✧</div>
+        <div class="star-symbol star3">✦</div>
+        <div class="star-symbol star4">✧</div>
+        <div class="star-symbol star5">✦</div>
+        
+        <div class="star-header">
+            <h1 class="star-title">Astronomy Picture of the Day</h1>
+            <p class="date-display" id="currentDate"></p>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Loading today's cosmic wonder...</p>
+        </div>
+        
+        <div class="astronomy-content" id="content" style="display: none;">
+            <img class="astronomy-image" id="apodImage" alt="Astronomy Picture" />
+            <h2 class="astronomy-title" id="apodTitle"></h2>
+            <p class="astronomy-explanation" id="apodExplanation"></p>
+        </div>
+        
+        <div class="error-message" id="error" style="display: none;">
+            <p>Unable to load today's astronomy picture. Please check your internet connection and try again.</p>
+        </div>
+      </div>
+    </div>
     </section>
 
     <!-- About Section -->
@@ -757,7 +986,7 @@ Curious and driven, I thrive at the intersection of networking, AI, and real-wor
             </div>
         </div>
     </section>
-
+    
     <!-- Experience Section -->
     <section id="experience" class="section experience">
         <h2 class="section-title">/ experience</h2>
@@ -1395,6 +1624,118 @@ Curious and driven, I thrive at the intersection of networking, AI, and real-wor
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(initPleiades, 100);
         });
+
+        document.addEventListener('mousemove', function(e) {
+            const card = document.querySelector('.star-card');
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+        });
+        
+        document.addEventListener('mouseleave', function() {
+            const card = document.querySelector('.star-card');
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+        });
+
+        const today = new Date();
+        const options = { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        };
+        document.getElementById('currentDate').textContent = today.toLocaleDateString('en-US', options);
+
+        // NASA APOD API
+        const API_KEY = 'CRakiYFKCfQMX90mQwLTde1adcfH0LeKTwp4Fzhs';
+        const API_URL = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`;
+
+        // Fetch astronomy data
+        async function fetchAstronomyData() {
+            try {
+                const response = await fetch(API_URL);
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+                
+                const data = await response.json();
+                displayAstronomyData(data);
+                
+            } catch (error) {
+                console.error('Error fetching astronomy data:', error);
+                showError();
+            }
+        }
+
+        function displayAstronomyData(data) {
+            const loading = document.getElementById('loading');
+            const content = document.getElementById('content');
+            const image = document.getElementById('apodImage');
+            const title = document.getElementById('apodTitle');
+            const explanation = document.getElementById('apodExplanation');
+
+            // Hide loading spinner
+            loading.style.display = 'none';
+            
+            // Set content
+            title.textContent = data.title;
+            explanation.textContent = data.explanation;
+            
+            // Handle different media types
+            if (data.media_type === 'image') {
+                image.src = data.url;
+                image.style.display = 'block';
+            } else if (data.media_type === 'video') {
+                // For videos, try to use the thumbnail if available, otherwise hide image
+                if (data.thumbnail_url) {
+                    image.src = data.thumbnail_url;
+                    image.style.display = 'block';
+                } else {
+                    image.style.display = 'none';
+                }
+            }
+            
+            // Show content
+            content.style.display = 'block';
+        }
+
+        function showError() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').style.display = 'block';
+        }
+
+        // Add interactive effects
+        document.addEventListener('mousemove', function(e) {
+            const card = document.querySelector('.star-card');
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+        });
+        
+        document.addEventListener('mouseleave', function() {
+            const card = document.querySelector('.star-card');
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+        });
+
+        // Initialize the app
+        fetchAstronomyData();
     </script>
 </body>
 </html>>
