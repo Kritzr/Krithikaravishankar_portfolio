@@ -1,13 +1,712 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krithika Ravishankar - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a2332 0%, #0f1419 100%);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: rgba(15, 20, 25, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #4ade80;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: #ccc;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #4ade80;
+        }
+
+        /* Sections */
+        .section {
+            min-height: 100vh;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Home Section */
+        .home {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 5rem;
+        }
+
+        .brain-svg {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .hero-text .highlight {
+            color: #4ade80;
+        }
+
+        .hero-text .tagline {
+            font-size: 1.5rem;
+            color: #888;
+            margin-bottom: 2rem;
+        }
+
+        .hero-description {
+            max-width: 600px;
+            font-size: 1.1rem;
+            color: #aaa;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 2px solid #4ade80;
+            color: #4ade80;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .cta-button:hover {
+            background: #4ade80;
+            color: #1a2332;
+        }
+
+        /* About Section */
+        .about {
+            padding-top: 8rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: #4ade80;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        .about-text .highlight {
+            color: #4ade80;
+            font-weight: 600;
+        }
+
+        .profile-image {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .tech-item {
+            color: #aaa;
+            padding: 0.5rem 0;
+        }
+
+        .tech-item::before {
+            content: "▸ ";
+            color: #4ade80;
+            margin-right: 0.5rem;
+        }
+
+        /* Experience Section */
+        .experience {
+            padding-top: 8rem;
+        }
+
+        .exp-container {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 4rem;
+        }
+
+        .company-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .company-item {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .company-item.active {
+            background: rgba(74, 222, 128, 0.1);
+            border-left-color: #4ade80;
+        }
+
+        .exp-details {
+            padding-left: 2rem;
+        }
+
+        .exp-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .exp-date {
+            color: #888;
+            margin-bottom: 2rem;
+        }
+
+        .exp-description {
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .exp-description li {
+            margin-bottom: 1rem;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding-top: 8rem;
+        }
+
+        .project-carousel {
+            position: relative;
+            margin: 3rem 0;
+        }
+
+        .carousel-container {
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .carousel-slide {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: #4ade80;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .project-icon {
+            width: 40px;
+            height: 40px;
+            background: #4ade80;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-links a {
+            color: #ccc;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .project-links a:hover {
+            color: #4ade80;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .project-description {
+            color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tech {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .exp-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Brain SVG Animation */
+        .brain-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawBrain 3s ease-in-out forwards;
+        }
+
+        @keyframes drawBrain {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">Krithika Ravishankar</a>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+            </ul>
+            <div class="social-links">
+                <a href="#">📧</a>
+                <a href="#">🐙</a>
+                <a href="#">💼</a>
+                <a href="#">✏️</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="section home">
+        <div class="brain-svg">
+            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="brain-path" d="M50 100 C50 60, 90 60, 100 80 C110 60, 150 60, 150 100 C150 120, 130 140, 100 120 C70 140, 50 120, 50 100" 
+                      stroke="#4ade80" stroke-width="2" fill="none"/>
+                <circle cx="80" cy="90" r="2" fill="#4ade80"/>
+                <circle cx="120" cy="90" r="2" fill="#4ade80"/>
+                <circle cx="100" cy="110" r="2" fill="#4ade80"/>
+                <path d="M90 120 Q100 130, 110 120" stroke="#4ade80" stroke-width="1" fill="none"/>
+            </svg>
+        </div>
+        <div class="hero-text fade-in">
+            <h1>hi, <span class="highlight">Krithika</span> here.|</h1>
+            <p class="tagline">I create stuff sometimes.</p>
+            <p class="hero-description">
+                I’m Krithika, a 21-year-old undergrad passionate about AI, cybersecurity, and 5G/B5G networks. I enjoy building hands-on projects in ML, SQL security, and telecom simulations while exploring research opportunities.
+Curious and driven, I thrive at the intersection of networking, AI, and real-world problem solving.
+            </p>
+            <a href="#contact" class="cta-button">📧 Say hi!</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <h2 class="section-title">/ about me</h2>
+        <div class="about-content fade-in">
+            <div class="about-text">
+                <p>I am currently an <strong>Undergraduate Student</strong> in <span class="highlight">Madras Institute of Technology, Anna University</span>, studying in Computer Science and Engineering, passionate about <strong>AI/ML, CyberSecurity , and 5G/B5G Netwroks. </strong> My journey has been a mix of hands-on projects, research, and hackathons, where I explore how emerging technologies can solve real-world problems.</p>
+                
+                <p>Here are some technologies I have been working with:</p>
+                
+                <div class="tech-grid">
+                    <div class="tech-item">Java</div>
+                    <div class="tech-item">HTML</div>
+                    <div class="tech-item">CSS</div>
+                    <div class="tech-item">Python</div>
+                    <div class="tech-item">React.js</div>
+                    <div class="tech-item">Bootstrap</div>
+                    <div class="tech-item">JavaScript</div>
+                    <div class="tech-item">C</div>
+                    <div class="tech-item">Bash</div>
+                    <div class="tech-item">MySQL/PostgreSQL</div>
+                    <div class="tech-item">PHP</div>
+                    <div class="tech-item">Open5GS</div>
+                    <div class="tech-item">srsRAN</div>
+                    <div class="tech-item">Docker</div>
+                    <div class="tech-item">WireShark</div>
+                    <div class="tech-item">Git</div>
+                    <div class="tech-item">Arduino IDE</div>
+                </div>
+                
+                <p>Outside of work, I'm interested in following the developments of science. I love to dance, sing, paint and read lots and lots of books. And have started to make entertainment content.</p>
+            </div>
+            <div>
+                <img src="./profile-pic.jpg" 
+                     alt="Profile" class="profile-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section experience">
+        <h2 class="section-title">/ experience</h2>
+        <div class="exp-container fade-in">
+            <div class="company-list">
+                <div class="company-item active" data-company="PravartaK">Pravartak Technologies and Foundations</div>
+                <div class="company-item" data-company="Ultipa">Ultipa Graph DB</div>
+                <div class="company-item" data-company="NGN">Next-Generational Networks Lab</div>
+                
+            </div>
+            <div class="exp-details">
+                <div class="exp-content" id="Pravartak">
+                    <h3 class="exp-title">Research Associate @ <span class="highlight">Pravartak Technologies and Foundations</span></h3>
+                    <p class="exp-date">MAY 2025 - PRESENT</p>
+                    <ul class="exp-description">
+                        <li>▸ Designing a PostgreSQL core extension to detect and block SQL injection attacks via query fingerprinting and structural normalization.</li>
+                        <li>▸ Integrated zero-shot learning with fingerprint hashing to semantically identify injection anomalies at runtime.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exp-details">
+                <div class="exp-content" id="Ultipa">
+                    <h3 class="exp-title">Student Intern @ <span class="highlight">Ultipa Graph DB</span></h3>
+                    <p class="exp-date">JAN 2025 - MAY 2025</p>
+                    <ul class="exp-description">
+                        <li>▸Engineered a graph-based detection pipeline for DDoS and anomaly identification using centrality metrics.</li>
+                        <li>▸ Modeled and queried dynamic attack patterns using Ultipa Query Language (UQL) on untyped graph structures.</li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="exp-details">
+                <div class="exp-content" id="Pravartak">
+                    <h3 class="exp-title">Research Associate @ <span class="highlight">Pravartak Technologies and Foundations</span></h3>
+                    <p class="exp-date">MAY 2025 - PRESENT</p>
+                    <ul class="exp-description">
+                        <li>▸ Designing a PostgreSQL core extension to detect and block SQL injection attacks via query fingerprinting and structural normalization.</li>
+                        <li>▸ Integrated zero-shot learning with fingerprint hashing to semantically identify injection anomalies at runtime.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title" style="margin-top: 4rem;">/ pet projects</h2>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section projects">
+        <div class="projects-grid fade-in">
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">📁</div>
+                    <div class="project-links">
+                        <a href="#">🐙</a>
+                        <a href="#">🔗</a>
+                    </div>
+                </div>
+                <h3 class="project-title">TDSB Homework Management Interface</h3>
+                <p class="project-description">An application created for Toronto District School Board, with a Flask back-end and a Vue front-end.</p>
+                <p class="project-tech">Python (Flask), Vue.js, Bootstrap, SQL</p>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">📁</div>
+                    <div class="project-links">
+                        <a href="#">🐙</a>
+                        <a href="#">🔗</a>
+                    </div>
+                </div>
+                <h3 class="project-title">Adam A.I.</h3>
+                <p class="project-description">A self-learning A.I. that learns to traverse through a complex maze using the genetic algorithm.</p>
+                <p class="project-tech">Javascript, HTML / CSS</p>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">📁</div>
+                    <div class="project-links">
+                        <a href="#">🐙</a>
+                    </div>
+                </div>
+                <h3 class="project-title">Distributed Logging and Monitoring System</h3>
+                <p class="project-description">A system that establishes an ORM connection to a Prisma client in order to communicate logs from microservices.</p>
+                <p class="project-tech">Node.js (Express.js), React.js, PostgreSQL</p>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">📁</div>
+                    <div class="project-links">
+                        <a href="#">🐙</a>
+                    </div>
+                </div>
+                <h3 class="project-title">Odin Bot</h3>
+                <p class="project-description">A Telegram bot that helps you excel on your daily tasks through Node NLP.</p>
+                <p class="project-tech">Javascript, Node.js, Natural NLP, Telegram API</p>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">📁</div>
+                    <div class="project-links">
+                        <a href="#">🐙</a>
+                    </div>
+                </div>
+                <h3 class="project-title">Game Centre</h3>
+                <p class="project-description">An Android app consisting of three board games, including multiplayer, autosave, user authentication, etc.</p>
+                <p class="project-tech">Java, Android Studio</p>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">📁</div>
+                    <div class="project-links">
+                        <a href="#">🐙</a>
+                    </div>
+                </div>
+                <h3 class="project-title">Minimax Stonehenge</h3>
+                <p class="project-description">Two-player, zero-sum game with a strategic Minimax artificial intelligence.</p>
+                <p class="project-tech">Python</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Built and designed by Gazi Jarin.</p>
+        <p>All rights reserved. ©</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Active navigation highlighting
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Company selection in experience section
+        document.querySelectorAll('.company-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.company-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                
+                // Here you would typically show different experience content
+                // For now, we'll just keep the Amazon experience visible
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Typing effect for the main heading
+        const heading = document.querySelector('.hero-text h1');
+        const text = "hi, krithika here.|";
+        let i = 0;
+        
+        function typeWriter() {
+            if (i < text.length) {
+                heading.innerHTML = text.slice(0, i + 1);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        
+        // Start typing effect after page loads
+        setTimeout(typeWriter, 1000);
+    </script>
+</body>
 </html>
